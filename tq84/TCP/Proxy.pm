@@ -62,7 +62,7 @@ sub connection {
         if ($s == $client_socket) {
 
           my $buf;
-          $client_socket->recv($buf, 1024) ;
+          $client_socket->recv($buf, 1024);
           unless ($buf) {
             $server_socket->close();
             &$callback('client closed', $connection_counter);
