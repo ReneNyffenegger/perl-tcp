@@ -4,7 +4,11 @@
 
 ## tq84::TCP::Proxy
 
-A perl package implementing a proxy that relays tcp traffic. Uses `tq84::TCP::Server`.
+A Perl package implementing a proxy that relays tcp traffic. Uses [`tq84::TCP::Server`](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tq84/TCP/Server.pm).
+
+## tq84::HTTP::Server
+
+A Perl package that can be used for small Web Server Applications. It doesn't aim to be standard compliant.
 
 ### Tests
 
