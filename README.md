@@ -21,6 +21,8 @@ then sends [index.html](https://github.com/ReneNyffenegger/perl-tcp/blob/master/
 [foo.html](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/foo.html) and [bar.html](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/bar.html).
 The third link (`baz.html`) does not exist, hence the server answers with a `404 Not Found` status.
 
+[get_post.pl](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/get_post.pl) tests the  `param()` function of `tq84::HTTP::Request` for GET and POST requests.
+
 ### Links
 
 [Jonas Wagner's HTTP ripper](https://github.com/jwagner/httpripper): a generic ripper for the web written in python.
