@@ -51,7 +51,6 @@
 
       var i;
       for (i in a) {
-        $('#out').html($('#out').html() + '<br>' + a[i]);
         startRequest(a[i]);
       }
       
@@ -77,14 +76,6 @@
           appendTo('body');
 
       }}
-
-        $('<div>').css({position       :'absolute',
-                       left            : 0,
-                       top             : 20 + 4 * 151,
-                       border          :'solid black 1px',
-                       }).
-                   attr({id: 'out'}).
-          appendTo('body');
 
       startRequests();
 
