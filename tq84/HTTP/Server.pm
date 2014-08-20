@@ -3,14 +3,22 @@ package tq84::HTTP::Server;
 use tq84::TCP::Server;
 use tq84::HTTP::Request;
 use IO::Select;
+use Time::localtime;
+use threads;
 use threads::shared;
 
-my $connection_counter;
+my $next_connection_id;
 my $callback;
-share($connection_counter);
-$connection_counter = 0;
+share($next_connection_id);
+$next_connection_id = 1;
+
+my $own_connection_id;
+
+my %options;
 
 my $FIONREAD = 1074030207; # --> https://github.com/ReneNyffenegger/perl-tcp/blob/master/misc/FIONBIO-FIONREAD-SIOCATMARK.c
+
+my $sem :shared;
 
 sub start { # {{{
     
@@ -18,14 +26,23 @@ sub start { # {{{
     my $port     = shift;
        $callback = shift;
 
+       %options  = @_;
+
+    if ($options{log_file}) {
+      open ($options{log_file_handle}, '>', $options{log_file});
+      my $ofh = select $options{log_file_handle}; $|=1; select $ofh;
+    }
+
     tq84::TCP::Server::start($host, $port, \&new_connection);
 
 } # }}}
 
 sub new_connection { # {{{
 
-  $connection_counter++;
-  print "\nnew connection $connection_counter\n";
+  $own_connection_id = $next_connection_id;
+  $next_connection_id++;
+
+  log_("New connection");
 
   my $socket = shift;
   binmode $socket;
@@ -34,7 +51,7 @@ sub new_connection { # {{{
 
   $select -> add ($socket);
 
-   while (1) {
+  while (1) {
 
     if ($select->can_read) {
       my $raw_request_data = read_pending($socket);
@@ -43,6 +60,8 @@ sub new_connection { # {{{
 
       my $request = new tq84::HTTP::Request($socket, $raw_request_data);
 
+      log_("New request " . $request->{path});
+
       &$callback($request);
     }
     else {
@@ -50,12 +69,32 @@ sub new_connection { # {{{
     }
 
   }
-
  
-  print "\ngoing to close connection $connection_counter\n";
+  log_("going to close connection");
 
   $socket->close;
 
+} # }}}
+
+sub log_ { # {{{
+
+    return unless $options{log_file_handle};
+
+    my $text = shift;
+
+    lock $sem;
+    printf { $options{log_file_handle} }
+    "%02d:%02d:%02d %02d.%02d.%d [%6d] %s\n",
+        localtime -> hour,
+        localtime -> min,
+        localtime -> sec,
+        localtime -> mday,
+        localtime -> mon   +    1,
+        localtime -> year  + 1900,
+        $own_connection_id,
+        $text
+    or die;
+    
 } # }}}
 
 sub read_pending { # {{{
