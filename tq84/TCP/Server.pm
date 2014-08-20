@@ -4,7 +4,7 @@ use IO::Socket;
 use IO::Select;
 use IO::Socket::INET;
 use threads;
-
+use threads::shared;
 
 sub start { # {{{
 
@@ -16,7 +16,7 @@ sub start { # {{{
         LocalHost   =>  $host,   #  or  '0.0.0.0'  ?
         LocalPort   =>  $port,
         Proto       => 'tcp',
-        Listen      =>  5,
+        Listen      =>  1,
         Reuse       =>  1
     ) or die "Cannot create socket";
 
@@ -29,6 +29,5 @@ sub start { # {{{
     $socket_ -> close;
     
 } # }}}
-
 
 1;
