@@ -23,6 +23,10 @@ The third link (`baz.html`) does not exist, hence the server answers with a `404
 
 [get_post.pl](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/get_post.pl) tests the  `param()` function of `tq84::HTTP::Request` for GET and POST requests.
 
+[test-concurrency.pl](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/test-concurrency.pl) (along with
+[test-concurrency.html](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tests/HTTP/Server/test-concurrency.html) tests if `tq84::HTTP::Server.pm` is able
+to handle requests in parallel. Compare with [the same test for HTTP::Server::Simple::CGI](https://github.com/ReneNyffenegger/PerlModules/blob/master/HTTP/Server/Simple/CGI/test-concurrency.pl).
+
 ### Links
 
 [Jonas Wagner's HTTP ripper](https://github.com/jwagner/httpripper): a generic ripper for the web written in python.
