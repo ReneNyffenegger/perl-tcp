@@ -5,6 +5,10 @@
     on Windows.
 
     gcc FIONBIO-FIONREAD-SIOCATMARK.c -o FIONBIO-FIONREAD-SIOCATMARK.exe
+    
+    
+    See also
+        http://eli.thegreenplace.net/2006/04/07/non-blocking-socket-access-on-windows/
 
 */
 #include <stdio.h>
