@@ -1,5 +1,7 @@
 package tq84::HTTP::Request;
 
+use File::Slurp;
+
 my $nl = "\x0d\x0a";
 
 sub new { # {{{
@@ -101,6 +103,46 @@ sub answer { # {{{
 
     $self->{socket_}->send( $answer);
     
+} # }}}
+
+sub answer_file { # {{{
+    my $self      = shift;
+    my $file_name = shift;
+
+    unless (-f $file_name) {
+       $self->answer('404 Not found', 'text/plain', "No file with name $file_name found");
+       return;
+    }
+
+    my $file_content = read_file($file_name);
+
+    print "$file_name, " . length($file_content), "\n";
+
+    if ($file_name =~ /\.htm$/  or $file_name =~ /\.html$/) {
+      $self->answer('200 Ok', 'text/html', $file_content);
+    }
+    if ($file_name =~ /\.js$/ ) {
+      $self->answer('200 Ok', 'application/javascript', $file_content);
+    }
+    if ($file_name =~ /\.css$/) {
+      $self->answer('200 Ok', 'text/css', $file_content);
+    }
+    if ($file_name =~ /\.txt$/) {
+      $self->answer('200 Ok', 'text/plain', $file_content);
+    }
+    if ($file_name =~ /\.js$/ ) {
+      $self->answer('200 Ok', 'application/javascript', $file_content);
+    }
+    if ($file_name =~ /\.png$/) {
+      $self->answer('200 Ok', 'image/png', $file_content);
+    }
+    if ($file_name =~ /\.jpg$/ or $file_name =~ /\.jpeg/) {
+      $self->answer('200 Ok', 'image/jpeg', $file_content);
+    }
+    if ($file_name =~ /\.ico$/) {
+      $self->answer('200 Ok', 'image/x-icon', $file_content);
+    }
+
 } # }}}
 
 1;
