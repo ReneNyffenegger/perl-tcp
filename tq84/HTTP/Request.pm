@@ -83,6 +83,11 @@ sub param { # {{{
     
 } # }}}
 
+sub path { # {{{
+    my $self = shift;
+    $self->{path};
+} # }}}
+
 sub answer { # {{{
 
     my $self         = shift;
