@@ -116,8 +116,6 @@ sub answer_file { # {{{
 
     my $file_content = read_file($file_name);
 
-    print "$file_name, " . length($file_content), "\n";
-
     if ($file_name =~ /\.htm$/  or $file_name =~ /\.html$/) {
       $self->answer('200 Ok', 'text/html', $file_content);
     }
