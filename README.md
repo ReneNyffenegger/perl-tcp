@@ -1,4 +1,4 @@
-# Utilities for Perl handling TCP
+# Utilities handling TCP for Perl
 
 ## tq84::TCP::Server
 
