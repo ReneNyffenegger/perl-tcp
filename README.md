@@ -31,6 +31,8 @@ to handle requests in parallel. Compare with [the same test for HTTP::Server::Si
 
 [`tq84::HTTP::Server`](https://github.com/ReneNyffenegger/perl-tcp/blob/master/tq84/HTTP/Server.pm) is used in [about-jqGrid](https://github.com/ReneNyffenegger/about-jqGrid) to generate data to be fed to a jqGrid.
 
+[The Python module SimpleHTTPServer](https://github.com/ReneNyffenegger/about-python/tree/master/standard-library/SimpleHTTPServer).
+
 [Jonas Wagner's HTTP ripper](https://github.com/jwagner/httpripper): a generic ripper for the web written in python.
 
 ### Misc
