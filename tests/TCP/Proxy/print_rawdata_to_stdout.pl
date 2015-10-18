@@ -1,6 +1,7 @@
 use warnings;
 use strict;
 
+use lib '../../..';
 use tq84::TCP::Proxy;
 
 tq84::TCP::Proxy::start( 'localhost', 8888, 'localhost', 80, \&callback);
