@@ -106,6 +106,8 @@ sub read_pending { # {{{
     while (1) {
 
       my $size = pack("L", 0);
+
+    # TODO: Use http://stackoverflow.com/a/33206116/180275 instead?
       ioctl($socket, $FIONREAD, $size) or die "Couldn't call ioctl: $!\n";
       $size = unpack("L", $size);
 
